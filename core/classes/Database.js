@@ -36,6 +36,16 @@ const DB = class Database {
         });
     }
 
+    select(table, conditions) {
+        return new Promise((resolve, reject) => {
+            this.query("SELECT * from " + table + " where (1=1 AND " + (this.parseConditions(conditions).join(' AND ')) + ")").then((data) => {
+                resolve(data);
+            }, (error) => {
+                reject(error);
+            })
+        });
+    }
+
     parseConditions(conditions) {
         let conds = [];
         for (let i in conditions) {
