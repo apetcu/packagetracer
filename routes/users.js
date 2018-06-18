@@ -21,6 +21,20 @@ users.get('/list', function (req, res) {
 /**
  * Get parcels list
  */
+users.get('/create', function (req, res) {
+    req.body.password = md5(req.body.password);
+
+    DBInstance.insert(currentTable, req.body).then(() => {
+        res.sendStatus(200);
+    }, (error) => {
+        res.status(400);
+        res.send(error);
+    })
+});
+
+/**
+ * Get parcels list
+ */
 users.post('/login', function (req, res) {
     DBInstance.select(currentTable, {
         username: req.body.username,
