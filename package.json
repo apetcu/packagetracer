@@ -15,7 +15,8 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/manugirgel/packagetracer#readme",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "md5": "^2.2.1"
   },
   "devDependencies": {
     "body-parser": "^1.18.3",
