@@ -15,8 +15,8 @@ module.exports = (Item, currentTable) => {
      */
     Item.post('/add', function (req, res) {
         DBInstance.insert(currentTable, req.body).then((insertID) => {
-            res.sendStatus(200);
-            res.send(insertID);
+            res.send({id: insertID});
+            console.log("insert id", insertID);
         }, (error) => {
             res.status(400);
             res.send(error);
