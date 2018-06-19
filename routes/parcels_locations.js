@@ -12,11 +12,21 @@ Restify(parcels_locations, currentTable);
  * Get parcels list
  */
 parcels_locations.get('/list', function (req, res) {
-    DBInstance.select(currentTable, {parcel: req.query.parcel}).then((data) => {
+    DBInstance.query("SELECT " + currentTable + ".id, " + currentTable + ".parcel, locations.name as location, " + currentTable + ".status, users.name, " + currentTable + ".date FROM " + currentTable + " " +
+        " inner join locations on " + currentTable + ".location=locations.id" +
+        " inner join users on users.id=" + currentTable + ".user WHERE " + currentTable + ".parcel='" + req.query.parcel + "'").then((data) => {
         res.send(data.map(entry => ParcelLocation(entry)));
     });
 });
 
+/**
+ * Get parcels list
+ */
+parcels_locations.get('/listID', function (req, res) {
+    DBInstance.select(currentTable, {parcel: req.query.parcel}).then((data) => {
+        res.send(data.map(entry => ParcelLocation(entry)));
+    });
+});
 
 
 module.exports = parcels_locations;
