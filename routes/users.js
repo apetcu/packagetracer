@@ -21,7 +21,7 @@ users.get('/list', function (req, res) {
 /**
  * Get parcels list
  */
-users.get('/create', function (req, res) {
+users.post('/create', function (req, res) {
     req.body.password = md5(req.body.password);
 
     DBInstance.insert(currentTable, req.body).then(() => {
