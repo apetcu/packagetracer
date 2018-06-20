@@ -12,11 +12,21 @@ Restify(users, currentTable);
 /**
  * Get parcels list
  */
-users.get('/list', function (req, res) {
+users.get('/list_old', function (req, res) {
     DBInstance.getAll(currentTable).then((data) => {
         res.send(data.map(entry => User(entry)));
     });
 });
+
+/**
+ * Get parcels list
+ */
+users.get('/list', function (req, res) {
+    DBInstance.query("SELECT " + currentTable + ".id, " + currentTable + ".username, " + currentTable + ".name, locations.name as location FROM `" + currentTable + "` inner join locations on locations.id=" + currentTable + ".location").then((data) => {
+        res.send(data.map(entry => User(entry)));
+    });
+});
+
 
 /**
  * Get parcels list
